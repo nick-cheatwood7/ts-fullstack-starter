@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import PrimaryLayout from '../components/layouts/primary/PrimaryLayout';
+
 import Search from '../components/utility/search/Search';
 import { NextPageWithLayout } from './page';
 
@@ -24,7 +25,7 @@ export default Home;
 
 Home.getLayout = (page) => {
   return (
-    <PrimaryLayout>
+    <PrimaryLayout justify="items-center">
       {/* <SidebarLayout /> */}
       {page}
     </PrimaryLayout>
