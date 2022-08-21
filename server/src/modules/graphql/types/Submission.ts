@@ -1,5 +1,5 @@
-import { objectType } from "nexus";
-import { Node } from "./Globals";
+import { inputObjectType, objectType } from "nexus";
+import { BaseResult, Node } from "./Globals";
 import { User } from "./User";
 
 export const Submission = objectType({
@@ -15,5 +15,24 @@ export const Submission = objectType({
     t.nonNull.string("favoriteColor");
     t.nonNull.string("favoriteFood");
     t.nonNull.int("age");
+  },
+});
+
+export const CreateSubmissionInput = inputObjectType({
+  name: "CreateSubmissionInput",
+  definition(t) {
+    t.nonNull.string("favoriteColor");
+    t.nonNull.string("favoriteFood");
+    t.nonNull.int("age");
+  },
+});
+
+export const CreateSubmissionResult = objectType({
+  name: "CreateSubmissionResult",
+  definition(t) {
+    t.implements(BaseResult);
+    t.field("submission", {
+      type: Submission,
+    });
   },
 });

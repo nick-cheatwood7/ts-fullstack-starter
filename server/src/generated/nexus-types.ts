@@ -30,6 +30,11 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  CreateSubmissionInput: { // input type
+    age: number; // Int!
+    favoriteColor: string; // String!
+    favoriteFood: string; // String!
+  }
   RegisterInput: { // input type
     email: string; // String!
     firstName: string; // String!
@@ -51,6 +56,11 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  CreateSubmissionResult: { // root type
+    error: boolean; // Boolean!
+    message: string; // String!
+    submission?: NexusGenRootTypes['Submission'] | null; // Submission
+  }
   CreateUserResult: { // root type
     error: boolean; // Boolean!
     message: string; // String!
@@ -79,7 +89,7 @@ export interface NexusGenObjects {
 }
 
 export interface NexusGenInterfaces {
-  BaseResult: core.Discriminate<'CreateUserResult', 'required'>;
+  BaseResult: core.Discriminate<'CreateSubmissionResult', 'required'> | core.Discriminate<'CreateUserResult', 'required'>;
   Node: core.Discriminate<'Submission', 'required'> | core.Discriminate<'User', 'required'>;
 }
 
@@ -91,12 +101,18 @@ export type NexusGenRootTypes = NexusGenInterfaces & NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  CreateSubmissionResult: { // field return type
+    error: boolean; // Boolean!
+    message: string; // String!
+    submission: NexusGenRootTypes['Submission'] | null; // Submission
+  }
   CreateUserResult: { // field return type
     error: boolean; // Boolean!
     message: string; // String!
     user: NexusGenRootTypes['User'] | null; // User
   }
   Mutation: { // field return type
+    createSubmission: NexusGenRootTypes['CreateSubmissionResult'] | null; // CreateSubmissionResult
     createUser: NexusGenRootTypes['CreateUserResult'] | null; // CreateUserResult
   }
   Query: { // field return type
@@ -133,12 +149,18 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  CreateSubmissionResult: { // field return type name
+    error: 'Boolean'
+    message: 'String'
+    submission: 'Submission'
+  }
   CreateUserResult: { // field return type name
     error: 'Boolean'
     message: 'String'
     user: 'User'
   }
   Mutation: { // field return type name
+    createSubmission: 'CreateSubmissionResult'
     createUser: 'CreateUserResult'
   }
   Query: { // field return type name
@@ -176,6 +198,9 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createSubmission: { // args
+      options: NexusGenInputs['CreateSubmissionInput']; // CreateSubmissionInput!
+    }
     createUser: { // args
       options: NexusGenInputs['RegisterInput']; // RegisterInput!
     }
@@ -183,11 +208,12 @@ export interface NexusGenArgTypes {
 }
 
 export interface NexusGenAbstractTypeMembers {
-  BaseResult: "CreateUserResult"
+  BaseResult: "CreateSubmissionResult" | "CreateUserResult"
   Node: "Submission" | "User"
 }
 
 export interface NexusGenTypeInterfaces {
+  CreateSubmissionResult: "BaseResult"
   CreateUserResult: "BaseResult"
   Submission: "Node"
   User: "Node"

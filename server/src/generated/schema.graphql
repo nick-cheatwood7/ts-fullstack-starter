@@ -7,6 +7,18 @@ interface BaseResult {
   message: String!
 }
 
+input CreateSubmissionInput {
+  age: Int!
+  favoriteColor: String!
+  favoriteFood: String!
+}
+
+type CreateSubmissionResult implements BaseResult {
+  error: Boolean!
+  message: String!
+  submission: Submission
+}
+
 type CreateUserResult implements BaseResult {
   error: Boolean!
   message: String!
@@ -17,6 +29,7 @@ type CreateUserResult implements BaseResult {
 scalar Date
 
 type Mutation {
+  createSubmission(options: CreateSubmissionInput!): CreateSubmissionResult
   createUser(options: RegisterInput!): CreateUserResult
 }
 

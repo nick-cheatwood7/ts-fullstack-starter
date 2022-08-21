@@ -1,5 +1,6 @@
 import { extendType } from "nexus";
 
+export * as SubmissionResolvers from "./Submission";
 export * as UserResolvers from "./User";
 
 export const TestQuery = extendType({
