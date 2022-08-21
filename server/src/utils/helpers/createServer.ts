@@ -1,10 +1,8 @@
-import { ApolloServer } from "apollo-server-express";
+import cors from "cors";
 import express from "express";
-import { schema } from "../../modules/graphql/schema";
-import { logger } from "../../modules/middleware/logger";
-import { Context } from "../../types/Context";
+import { logger } from "../../api/middleware/logger";
+import routes from "../../api/routes";
 import { __prod__ } from "../constants";
-import { prisma } from "../prisma";
 
 const app = express();
 
@@ -12,25 +10,12 @@ const app = express();
 app.set("trust proxy", !__prod__);
 app.use(express.json());
 app.use(express.text());
+app.use(cors());
 app.use(logger);
 
-// TODO: Configure session store
-
-function buildContext({ req, res }: Context): Context {
-  return {
-    req,
-    res,
-    db: prisma,
-  } as Context;
-}
+// router
+app.use("/api", routes);
 
 export async function createServer() {
-  const server = new ApolloServer({
-    schema: schema,
-    csrfPrevention: true,
-    cache: "bounded",
-    context: buildContext,
-  });
-
-  return { app, server };
+  return { app };
 }
