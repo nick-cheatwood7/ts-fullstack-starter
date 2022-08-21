@@ -8,9 +8,11 @@
     "npm": "please-use-yarn"
   },
   "scripts": {
-    "docker:up": "docker-compose up -d",
+    "docker:up": "docker-compose --env-file ./.env up -d",
     "docker:down": "docker-compose down",
-    "dev": "yarn run docker:up && nodemon dist/src/index.js",
+    "build:nexus-typegen": "ts-node --transpile-only ./src/modules/graphql/schema.ts",
+    "predev": "yarn run docker:up && yarn run build:nexus-typegen && yarn run gen-env",
+    "dev": "yarn run docker:up && nodemon dist/index.js",
     "build": "tsc",
     "watch": "tsc --watch",
     "start": "yarn run build && node dist/src/index.js",
