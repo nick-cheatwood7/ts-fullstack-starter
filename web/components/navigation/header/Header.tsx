@@ -24,6 +24,9 @@ const Header: React.FC<IHeader> = ({ className, ...headerProps }) => {
         <Link href="/">
           <a className="hover:underline hidden sm:inline">Images</a>
         </Link>
+        <Link href="/register">
+          <a className="hover:underline hidden sm:inline">Register</a>
+        </Link>
         <AuthButton />
       </div>
     </header>
